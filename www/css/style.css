@@ -7,19 +7,34 @@
 	padding: 0px 15px 0px 15px;
 }
 
+.input-field label {
+	top: 0.7em;
+	left: 0;
+}
+
 .nav-wrapper i {
-	font-size: 1.5rem;
+	font-size: 2rem;
 }
 
 #search {
 	margin: 0;
+	padding: 0.8em 0.8em 0 2em;
 	color: #FFFFFF;
 }
 
-.valign-wrapper {
-	justify-content: left;
+.search-icon{
+	padding: 0.8em 0.8em 0 0em;
 }
 
+.search-icon.active{
+	font-size:1rem;
+}
+
+@media(min-width: 601px){
+	.search-icon{
+		padding:0;
+	}
+}
 /**********************************************
  **********************************************
  ****************** Content *******************
