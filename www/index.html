@@ -7,7 +7,7 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
+    
     <!-- materialize.min.css -->
     <link type="text/css" rel="stylesheet" href="lib/materialize/dist/css/materialize.min.css"  media="screen,projection"/>
 
@@ -30,19 +30,18 @@
   </head>
   <body ng-app="simplydo">
     <ion-pane>
-        <nav class="fixed">
+      <div class="nav-fixed">
+        <nav>
           <div class="nav-wrapper">
-            <div class="col s12">
-              <a class="brand-logo">SimplyDo</a>
-              <ul class="side-nav">
-                <li><a><i class="mdi-action-search"></i></a></li>
-                <li><a><i class="mdi-action-view-module"></i></a></li>
-                <li><a><i class="mdi-navigation-refresh"></i></a></li>
-                <li><a><i class="mdi-navigation-more-vert"></i></a></li>
-              </ul>
-            </div>
+            <form>
+              <div class="input-field col s12">
+                  <input id="search" type="text" required>
+                  <label for="search"><i class="mdi-action-search"></i></label>
+              </div>
+            </form>
           </div>
         </nav>
+      </div>
     </ion-pane>
   </body>
 </html>
