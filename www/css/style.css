@@ -7,19 +7,17 @@
 	padding: 0px 15px 0px 15px;
 }
 
-.input-field label {
-	top: 0.7em;
-	left: 0;
-}
-
 .nav-wrapper i {
-	font-size: 2rem;
+	font-size: 1.5rem;
 }
 
 #search {
 	margin: 0;
-	padding: 0.8em 0.8em 0 2em;
 	color: #FFFFFF;
+}
+
+.valign-wrapper {
+	justify-content: left;
 }
 
 /**********************************************
