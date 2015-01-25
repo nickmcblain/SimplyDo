@@ -23,11 +23,15 @@ simplydo.run(function($ionicPlatform) {
   .state('app', {
     url:'/app',
     templateUrl: "templates/home.html"
+  })
+  .state('app-login', {
+    url:'/app-login',
+    templateUrl: "templates/login.html"
   });
-  $urlRouterProvider.otherwise('/app');
+  $urlRouterProvider.otherwise('/app-login');
 
 });
 
-simplydo.controller('HomeCtrl', function($scope){
-  console.log('test');
+simplydo.controller('LoginController', function($scope){
+  
 });
