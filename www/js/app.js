@@ -32,6 +32,14 @@ simplydo.run(function($ionicPlatform) {
 
 });
 
-simplydo.controller('LoginController', function($scope){
-  
+simplydo.controller('LoginController', function($scope, $http){
+  $scope.form = {};
+  $scope.login = function(){
+    // $http.get('https://simply-do-api.herokuapp.com/api/user/' + $scope.form.username).then(function(res){
+
+    // }, function(err){
+
+    // });
+    console.log($scope.form.username);
+  };
 });
