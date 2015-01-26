@@ -31,10 +31,13 @@ simplydo.run(function($ionicPlatform) {
   $urlRouterProvider.otherwise('/app-login');
 });
 
+simplydo.factory('AuthorizationService', function($scope){
+  $scope.form = { username: "", password: "" };
+});
+
 simplydo.controller('LoginController', function($scope, $http, $state){
-  $scope.form = {};
   $scope.login = function(){
-    $http.post('https://simply-do-api.herokuapp.com/api/login/' + $scope.form.username).then(function(res){
+    $http.post('https://simply-do-api.herokuapp.com/api/login').then(function(res){
       console.log(res);
       // if(res.statusText == 'OK')
       //   $state.go('app');
