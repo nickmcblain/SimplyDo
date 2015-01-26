@@ -29,17 +29,19 @@ simplydo.run(function($ionicPlatform) {
     templateUrl: "templates/login.html"
   });
   $urlRouterProvider.otherwise('/app-login');
-
 });
 
-simplydo.controller('LoginController', function($scope, $http){
+simplydo.controller('LoginController', function($scope, $http, $state){
   $scope.form = {};
   $scope.login = function(){
-    // $http.get('https://simply-do-api.herokuapp.com/api/user/' + $scope.form.username).then(function(res){
-
-    // }, function(err){
-
-    // });
-    console.log($scope.form.username);
+    $http.post('https://simply-do-api.herokuapp.com/api/login/' + $scope.form.username).then(function(res){
+      console.log(res);
+      // if(res.statusText == 'OK')
+      //   $state.go('app');
+    }, function(err){
+      if(err){
+        $scope.form.error = '*Username or Password incorrect';
+      };
+    });
   };
 });
