@@ -4,27 +4,27 @@
       <h1 class="white-text">SimplyDo</h1>
     </div>
     <div class="row login-body">
-      <form class="col s12">
+      <form class="col s12" ng-submit="login()">
         <div class="row">
           <div class="input-field col s12 primary-text">
             <i class="mdi-action-perm-identity prefix"></i>
-            <input id="username" type="text" ng-model="form.username">
+            <input id="username" type="text" ng-model="formData.username">
             <label class="grey-text" for="username">Username</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 primary-text">
           <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" ng-model="form.password">
+            <input id="password" type="password" ng-model="formData.password">
             <label class="grey-text" for="password">Password</label>
           </div>
         </div>
         <div class="row">
-          <span class="error">{{form.error}}</span>
+          <span class="error">{{formData.error}}</span>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <a class="waves-effect waves-light btn long-btn" ng-click="login()">Login</a>
+            <button type="submit" class="waves-effect waves-light btn long-btn">Login</button>
           </div>
         </div>
       </form>
