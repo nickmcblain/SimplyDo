@@ -60,15 +60,27 @@ simplydo.factory('DataService', function($resource, $state, $http){
 
   return {
     login: function(input){
-      return $http.post(domain + '/login', input, { headers: headerData}).success(function(){
-        $state.go('app');
+      // return $http({withCredentials: true}).post(domain + '/login', input, { headers: headerData});
+
+      return $http({
+        url: domain + '/login',
+        withCredentials: true,
+        method: 'POST',
+        data: 'username='+input.username+'&password='+input.password,
+        headers: headerData
       });
+
     },
     getTasks: function(){
-      return $http.get(domain + '/tasks');
+      return $http({
+        url: domain + '/tasks',
+        method: 'GET',
+        withCredentials: true
+      });
     }, 
     addTask: function(input){
-      return $http.post(domain + '/tasks');
+      // return $http({withCredentials: true}).post(domain + '/tasks');
+      // Do similar to above
     }
   }
 });
@@ -81,11 +93,13 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
   $scope.formData = {};
   
   $scope.requestLogin = function(){
-    $scope.dataConnection = DataService.login($.param({
+    $scope.dataConnection = DataService.login({
       username: $scope.formData.username,
       password: $scope.formData.password
-    })).error(function(){
-      $scope.formData.error = 'Incorrect Username or Password';
+    }).then(function(){
+       $state.go('app');
+    },function(){
+       $scope.formData.error = 'Incorrect Username or Password';
     });
     console.log($scope.dataConnection);
   };
@@ -97,13 +111,18 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ===============================================
 simplydo.controller('TaskController', function($scope, DataService){
     
-  $scope.tasks = DataService.getTasks().error(function(){
+  $scope.tasks = DataService.getTasks().then(function(){
+    // Success
+    console.log($scope.tasks);
+  },function(){
     $scope.tasks.error = 'Failed to load tasks';
   });
-  console.log($scope.tasks);
 
   $scope.refreshTasks = function(){
-    $scope.tasks = DataService.getTasks().error(function(){
+    $scope.tasks = DataService.getTasks().then(function(){
+      // Success
+      console.log($scope.tasks);
+    }, function(){
       $scope.tasks.error = 'Failed to load tasks';
     });
     console.log($scope.tasks);
