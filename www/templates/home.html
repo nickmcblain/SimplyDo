@@ -1,16 +1,33 @@
 <ion-view>
-  <ion-content>
+  <ion-content ng-controller="TaskController">
     <div class="nav-fixed">
       <nav>
         <div class="nav-wrapper valign-wrapper">
           <form class="col s12">
             <div class="input-field col s12">
-                <input id="search" type="text" required>
+                <input id="search" type="text" ng-model="query" required>
                 <label for="search"><i class="mdi-action-search"></i></label>
             </div>
           </form>
         </div>
       </nav>
+    </div>
+    <div class="tasks">
+      <div class="row">
+        <div class="card col s12" ng-repeat="task in tasks | filter:query as result">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://media.caranddriver.com/images/media/51/dissected-lotus-based-infiniti-emerg-e-sports-car-concept-top-image-photo-451994-s-original.jpg">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{task.title}} <i class="mdi-navigation-more-vert right"></i></span>
+            <p><a href="#" ng-repeat="tags in task.tags">{{tags.tag}}</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{task.title}}<i class="mdi-navigation-close right"></i></span>
+            <p ng-repeat="contents in task.contents">{{contents.content}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

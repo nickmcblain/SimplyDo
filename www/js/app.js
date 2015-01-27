@@ -47,16 +47,72 @@ simplydo.run(function($ionicPlatform) {
 // });
 
 simplydo.controller('LoginController', function($scope, $state, $http){
+  Waves.displayEffect();
+
   $scope.form = { username: "", password: "", error: "" };
+
   $scope.login = function(){
-    $http.post('https://simply-do-api.herokuapp.com/api/login/').then(function(res){
-      console.log(res);
+    // $http.post('https://simply-do-api.herokuapp.com/api/login/').then(function(res){
+    //   console.log(res);
       // if(res.statusText == '/api')
-      //   $state.go('app');
-    }, function(err){
-      if(err){
-        $scope.form.error = '*Username or Password incorrect';
-      };
-    });
+        $state.go('app');
+    // }, function(err){
+    //   if(err){
+    //     $scope.form.error = '*Username or Password incorrect';
+    //   };
+    // });
   };
+});
+
+simplydo.controller('TaskController', function($scope){
+  $scope.tasks = [
+    {
+      title: 'Ideas',
+      tags: [
+        {tag: 'Idea'}, 
+        {tag: 'Work'}
+      ],
+      contents: [
+        {content: 'Hello I am text for a task'},
+        {content: 'THis is a second task'},
+        {content: 'THe 3rd task thing to do'}
+      ]
+    },
+    {
+      title: 'Car',
+      tags: [
+        {tag: 'Idea'}, 
+        {tag: 'Work'}
+      ],
+      contents: [
+        {content: 'Hello I am text for a task'},
+        {content: 'THis is a second task'},
+        {content: 'THe 3rd task thing to do'}
+      ]
+    },
+    {
+      title: 'Ideas',
+      tags: [
+        {tag: 'Idea'}, 
+        {tag: 'Work'}
+      ],
+      contents: [
+        {content: 'Hello I am text for a task'},
+        {content: 'THis is a second task'},
+        {content: 'THe 3rd task thing to do'}
+      ]
+    },
+    {
+      title: 'Ideas',
+      tags: [
+        {tag: 'Idea'}, 
+        {tag: 'Work'}
+      ],
+      contents: [
+        {content: 'Hello I am text for a task'},
+        {content: 'THis is a second task'},
+        {content: 'THe 3rd task thing to do'}
+      ]
+    }
+  ];
 });
