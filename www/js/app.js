@@ -42,35 +42,35 @@ simplydo.run(function($ionicPlatform) {
 // ============= Application Service =============
 // ===============================================
 simplydo.factory('DataService', function($resource, $state, $http){
-  // return $resource('https://simply-do-api.herokuapp.com/api/', {}, {
-  //   login: {
-  //           method : 'post',
-  //           url : 'https://simply-do-api.herokuapp.com/api/login/',
-  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  //   },
-  //   retrieveTasks: {
-  //           method : 'get',
-  //           url : 'https://simply-do-api.herokuapp.com/api/tasks/',
-  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  //   }
-  // });
-  
-  var domain = 'https://simply-do-api.herokuapp.com/api';
-  var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-  return {
-    login: function(input){
-      return $http.post(domain + '/login', input, { headers: headerData}).success(function(){
-        $state.go('app');
-      });
+  return $resource('https://simply-do-api.herokuapp.com/api/', {}, {
+    login: {
+            method : 'post',
+            url : 'https://simply-do-api.herokuapp.com/api/login/',
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'},
     },
-    getTasks: function(){
-      return $http.get(domain + '/tasks');
-    }, 
-    addTask: function(input){
-      return $http.post(domain + '/tasks');
+    retrieveTasks: {
+            method : 'get',
+            url : 'https://simply-do-api.herokuapp.com/api/tasks/',
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'},
     }
-  }
+  });
+  
+  // var domain = 'https://simply-do-api.herokuapp.com/api';
+  // var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
+
+  // return {
+  //   login: function(input){
+  //     return $http.post(domain + '/login', input, { headers: headerData}).success(function(){
+  //       $state.go('app');
+  //     });
+  //   },
+  //   getTasks: function(){
+  //     return $http.get(domain + '/tasks');
+  //   }, 
+  //   addTask: function(input){
+  //     return $http.post(domain + '/tasks');
+  //   }
+  // }
 });
 
 
@@ -84,9 +84,10 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
     $scope.dataConnection = DataService.login($.param({
       username: $scope.formData.username,
       password: $scope.formData.password
-    })).error(function(){
-      $scope.formData.error = 'Incorrect Username or Password';
-    });
+    }));
+    // ).error(function(){
+    //   $scope.formData.error = 'Incorrect Username or Password';
+    // });
     console.log($scope.dataConnection);
   };
 }]);
@@ -96,18 +97,21 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ============ Task Page Controller =============
 // ===============================================
 simplydo.controller('TaskController', function($scope, DataService){
-    
-  $scope.tasks = DataService.getTasks().error(function(){
-    $scope.tasks.error = 'Failed to load tasks';
-  });
-  console.log($scope.tasks);
+  $scope.taskData;
 
-  $scope.refreshTasks = function(){
-    $scope.tasks = DataService.getTasks().error(function(){
-      $scope.tasks.error = 'Failed to load tasks';
-    });
-    console.log($scope.tasks);
-  };
+  // DataService.getTasks().success(function(data){
+  //   $scope.tasks = data;
+  // }).error(function(){
+  //   $scope.taskData.error = 'Failed to load tasks';
+  // });
+  // console.log($scope.tasks);
+
+  // $scope.refreshTasks = function(){
+  //   $scope.tasks = DataService.getTasks().error(function(){
+  //     $scope.tasks.error = 'Failed to load tasks';
+  //   });
+  //   console.log($scope.tasks);
+  // };
 
   
 
