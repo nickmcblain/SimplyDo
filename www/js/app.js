@@ -1,10 +1,12 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
+// ===============================================
+// ================ Dependancies =================
+// ===============================================
 var simplydo = angular.module('simplydo', ['ionic', 'ngResource']);
 
+
+// ===============================================
+// ============= Application Execute =============
+// ===============================================
 simplydo.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -18,6 +20,10 @@ simplydo.run(function($ionicPlatform) {
   });
 })
 
+
+// ===============================================
+// ================ Configuration ================
+// ===============================================
 .config(function($stateProvider, $urlRouterProvider){
   $stateProvider
   .state('app', {
@@ -31,88 +37,144 @@ simplydo.run(function($ionicPlatform) {
   $urlRouterProvider.otherwise('/app-login');
 });
 
-// simplydo.factory('AuthorizationService', function($resource){
-//   return $resource('https://simply-do-api.herokuapp.com/api/');
-// });
 
-// simplydo.controller('LoginController', function($scope, $state, AuthorizationService){
-//   $scope.posts = AuthorizationService.query();
+// ===============================================
+// ============= Application Service =============
+// ===============================================
+simplydo.factory('DataService', function($resource, $state, $http){
+  // return $resource('https://simply-do-api.herokuapp.com/api/', {}, {
+  //   login: {
+  //           method : 'post',
+  //           url : 'https://simply-do-api.herokuapp.com/api/login/',
+  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+  //   },
+  //   retrieveTasks: {
+  //           method : 'get',
+  //           url : 'https://simply-do-api.herokuapp.com/api/tasks/',
+  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+  //   }
+  // });
+  
+  var domain = 'https://simply-do-api.herokuapp.com/api';
+  var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-//   $scope.formData = {};
-//   $scope.login = function(){
-//     console.log($scope.formData);
-//     var request = new AuthorizationService.login($scope.formData);
-//     request.$save();
-//   }
-// });
-
-simplydo.controller('LoginController', function($scope, $state, $http){
-  Waves.displayEffect();
-
-  $scope.form = { username: "", password: "", error: "" };
-
-  $scope.login = function(){
-    // $http.post('https://simply-do-api.herokuapp.com/api/login/').then(function(res){
-    //   console.log(res);
-      // if(res.statusText == '/api')
+  return {
+    login: function(input){
+      return $http.post(domain + '/login', input, { headers: headerData}).success(function(){
         $state.go('app');
-    // }, function(err){
-    //   if(err){
-    //     $scope.form.error = '*Username or Password incorrect';
-    //   };
-    // });
-  };
+      });
+    },
+    getTasks: function(){
+      return $http.get(domain + '/tasks');
+    }, 
+    addTask: function(input){
+      return $http.post(domain + '/tasks');
+    }
+  }
 });
 
-simplydo.controller('TaskController', function($scope){
-  $scope.tasks = [
-    {
-      title: 'Ideas',
-      tags: [
-        {tag: 'Idea'}, 
-        {tag: 'Work'}
-      ],
-      contents: [
-        {content: 'Hello I am text for a task'},
-        {content: 'THis is a second task'},
-        {content: 'THe 3rd task thing to do'}
-      ]
-    },
-    {
-      title: 'Car',
-      tags: [
-        {tag: 'Idea'}, 
-        {tag: 'Work'}
-      ],
-      contents: [
-        {content: 'Hello I am text for a task'},
-        {content: 'THis is a second task'},
-        {content: 'THe 3rd task thing to do'}
-      ]
-    },
-    {
-      title: 'Ideas',
-      tags: [
-        {tag: 'Idea'}, 
-        {tag: 'Work'}
-      ],
-      contents: [
-        {content: 'Hello I am text for a task'},
-        {content: 'THis is a second task'},
-        {content: 'THe 3rd task thing to do'}
-      ]
-    },
-    {
-      title: 'Ideas',
-      tags: [
-        {tag: 'Idea'}, 
-        {tag: 'Work'}
-      ],
-      contents: [
-        {content: 'Hello I am text for a task'},
-        {content: 'THis is a second task'},
-        {content: 'THe 3rd task thing to do'}
-      ]
-    }
-  ];
+
+// ===============================================
+// ============ Login Page Controller ============
+// ===============================================
+simplydo.controller('LoginController', ['$scope', '$state', 'DataService', function($scope, $state, DataService){
+  $scope.formData = {};
+  
+  $scope.requestLogin = function(){
+    $scope.dataConnection = DataService.login($.param({
+      username: $scope.formData.username,
+      password: $scope.formData.password
+    })).error(function(){
+      $scope.formData.error = 'Incorrect Username or Password';
+    });
+    console.log($scope.dataConnection);
+  };
+}]);
+
+
+// ===============================================
+// ============ Task Page Controller =============
+// ===============================================
+simplydo.controller('TaskController', function($scope, DataService){
+    
+  $scope.tasks = DataService.getTasks().error(function(){
+    $scope.tasks.error = 'Failed to load tasks';
+  });
+  console.log($scope.tasks);
+
+  $scope.refreshTasks = function(){
+    $scope.tasks = DataService.getTasks().error(function(){
+      $scope.tasks.error = 'Failed to load tasks';
+    });
+    console.log($scope.tasks);
+  };
+
+  
+
+  // $scope.tasks = [
+  //   {
+  //     title: 'Ideas',
+  //     tags: [
+  //       {tag: 'Idea'}, 
+  //       {tag: 'Work'}
+  //     ],
+  //     images: [
+  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'},
+  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'}
+  //     ],
+  //     contents: [
+  //       {content: 'Hello I am text for a task'},
+  //       {content: 'THis is a second task'},
+  //       {content: 'THe 3rd task thing to do'}
+  //     ]
+  //   },
+  //   {
+  //     title: 'Dog',
+  //     tags: [
+  //       {tag: 'Idea'}, 
+  //       {tag: 'Work'}
+  //     ],
+  //     images: [
+  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'},
+  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'}
+  //     ],
+  //     contents: [
+  //       {content: 'Hello I am text for a task'},
+  //       {content: 'THis is a second task'},
+  //       {content: 'THe 3rd task thing to do'}
+  //     ]
+  //   },
+  //   {
+  //     title: 'Ideas',
+  //     tags: [
+  //       {tag: 'Idea'}, 
+  //       {tag: 'Work'}
+  //     ],
+  //     images: [
+  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'},
+  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'}
+  //     ],
+  //     contents: [
+  //       {content: 'Hello I am text for a task'},
+  //       {content: 'THis is a second task'},
+  //       {content: 'THe 3rd task thing to do'}
+  //     ]
+  //   },
+  //   {
+  //     title: 'Ideas',
+  //     tags: [
+  //       {tag: 'Idea'}, 
+  //       {tag: 'Work'}
+  //     ],
+  //     images: [
+  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'},
+  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'}
+  //     ],
+  //     contents: [
+  //       {content: 'Hello I am text for a task'},
+  //       {content: 'THis is a second task'},
+  //       {content: 'THe 3rd task thing to do'}
+  //     ]
+  //   }
+  // ];
 });
