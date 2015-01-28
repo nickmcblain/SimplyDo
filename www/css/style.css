@@ -114,6 +114,12 @@
 
 nav .nav-wrapper i {
 	font-size: 1.5rem;
+	color: rgba(255,255,255,0.7);
+}
+
+.nav-wrapper form {
+	width: 100%;
+	padding: 4em 0 0 0;
 }
 
 #search {
@@ -155,4 +161,8 @@ nav .nav-wrapper i {
 
 .card-title {
 	margin-bottom: 1em;
+}
+
+#modal1 {
+	top: 0;
 }

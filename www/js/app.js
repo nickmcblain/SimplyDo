@@ -66,7 +66,7 @@ simplydo.factory('DataService', function($resource, $state, $http){
         url: domain + '/login',
         withCredentials: true,
         method: 'POST',
-        data: 'username='+input.username+'&password='+input.password,
+        data: 'username=' + input.username + '&password=' + input.password,
         headers: headerData
       });
     },
@@ -78,10 +78,13 @@ simplydo.factory('DataService', function($resource, $state, $http){
       });
     }, 
     addTask: function(input){
-      // return $http({withCredentials: true}).post(domain + '/tasks');
-      // Do similar to above
+      return $http({
+        url: domain + '/tasks',
+        method: 'POST',
+        withCredentials: true
+      });
     }
-  });
+  };
   
   // var domain = 'https://simply-do-api.herokuapp.com/api';
   // var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -126,6 +129,8 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ============ Task Page Controller =============
 // ===============================================
 simplydo.controller('TaskController', function($scope, DataService){
+  $('.modal-trigger').leanModal();
+
   $scope.tasks = DataService.getTasks().then(function(){
     // Success
     console.log($scope.tasks);
@@ -141,6 +146,15 @@ simplydo.controller('TaskController', function($scope, DataService){
       $scope.tasks.error = 'Failed to load tasks';
     });
     console.log($scope.tasks);
+  };
+
+  $scope.addTask = function(){
+
+    // DataService.addTask().then(function(){
+    //   $scope.refreshTasks();
+    // }, function(){
+    //   $scope.tasks.error = 'Failed to add task';
+    // });
   };
   
 
