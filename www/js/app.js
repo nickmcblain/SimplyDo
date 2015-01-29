@@ -68,7 +68,7 @@ simplydo.factory('DataService', function($resource, $state, $http){
     }, 
     addTask: function(input){
       return $http({
-        url: domain + '/tasks' + input,
+        url: domain + '/tasks',
         method: 'POST',
         withCredentials: true,
         data: input
@@ -77,6 +77,16 @@ simplydo.factory('DataService', function($resource, $state, $http){
   };
 });
 
+simplydo.controller('AppCtrl', ['$scope', 'DataService', function($scope, DataService){
+  $scope.refreshTasks = function(){
+    $scope.tasks = DataService.getTasks().then(function(data){
+      // Success
+      $scope.tasks = data.data;
+    }, function(){
+      $scope.tasks.error = 'Failed to load tasks';
+    });
+  };
+}]);
 
 // ===============================================
 // ============ Login Page Controller ============
@@ -102,21 +112,7 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ============ Task Page Controller =============
 // ===============================================
 simplydo.controller('TaskController', function($scope, $state, DataService){
-  $scope.tasks = DataService.getTasks().then(function(data){
-    // Success
-    $scope.tasks = data.data;
-  },function(){
-    $scope.tasks.error = 'Failed to load tasks';
-  });
-
-  $scope.refreshTasks = function(){
-    $scope.tasks = DataService.getTasks().then(function(data){
-      // Success
-      $scope.tasks = data;
-    }, function(){
-      $scope.tasks.error = 'Failed to load tasks';
-    });
-  };
+  $scope.refreshTasks();
 
   $scope.addTask = function(){
     $state.go('app-task');
@@ -152,6 +148,7 @@ simplydo.controller('AddTaskController', function($scope, $state, DataService){
       $scope.temp
     ).then(function(data){
       console.log(data);
+      $scope.refreshTasks();
     }, function(err){
       console.log(err);
       $scope.tasks.error = 'Failed to add task';
