@@ -101,21 +101,20 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ============ Task Page Controller =============
 // ===============================================
 simplydo.controller('TaskController', function($scope, $state, DataService){
-  $scope.tasks = DataService.getTasks().then(function(){
+  $scope.tasks = DataService.getTasks().then(function(data){
     // Success
-    console.log($scope.tasks);
+    $scope.tasks = data;
   },function(){
     $scope.tasks.error = 'Failed to load tasks';
   });
 
   $scope.refreshTasks = function(){
-    $scope.tasks = DataService.getTasks().then(function(){
+    $scope.tasks = DataService.getTasks().then(function(data){
       // Success
-      console.log($scope.tasks);
+      $scope.tasks = data;
     }, function(){
       $scope.tasks.error = 'Failed to load tasks';
     });
-    console.log($scope.tasks);
   };
 
   $scope.addTask = function(){
