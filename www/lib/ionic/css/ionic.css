@@ -3948,7 +3948,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
  * --------------------------------------------------
  * Modals are independent windows that slide in from off-screen.
  */
-.modal-backdrop {
+/*.modal-backdrop {
   -webkit-transition: background-color 300ms ease-in-out;
   transition: background-color 300ms ease-in-out;
   position: fixed;
@@ -4003,13 +4003,13 @@ ion-tabs.tabs-color-active-dark .tab-item {
     pointer-events: auto; }
   .modal-open.loading-active .modal, .modal-open.loading-active .modal-backdrop {
     pointer-events: none; }
-
+*/
 /**
  * Popovers
  * --------------------------------------------------
  * Popovers are independent views which float over content
  */
-.popover-backdrop {
+/*.popover-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -4113,7 +4113,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
 
 @media (min-width: 680px) {
   .popover {
-    width: 360px; } }
+    width: 360px; } }*/
 
 /**
  * Popups
@@ -4233,12 +4233,12 @@ ion-tabs.tabs-color-active-dark .tab-item {
     .popup-buttons .button:last-child {
       margin-right: 0px; }
 
-.popup-open {
+/*.popup-open {
   pointer-events: none; }
   .popup-open.modal-open .modal {
     pointer-events: none; }
   .popup-open .popup-backdrop, .popup-open .popup {
-    pointer-events: auto; }
+    pointer-events: auto; }*/
 
 /**
  * Loading
@@ -6384,7 +6384,7 @@ a.button {
  * available width, and the height of each .col with take
  * up the height of the tallest .col in the same .row.
  */
-.row {
+/*.row {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -6412,12 +6412,12 @@ a.button {
   -ms-flex: 1;
   flex: 1;
   display: block;
-  /*padding: 5px;*/
-  width: 100%; }
+  /*padding: 5px;
+  width: 100%; }*/
 
 /* Vertically Align Columns */
 /* .row-* vertically aligns every .col in the .row */
-.row-top {
+/*.row-top {
   -webkit-box-align: start;
   -ms-flex-align: start;
   -webkit-align-items: flex-start;
@@ -6450,10 +6450,10 @@ a.button {
   -ms-flex-align: baseline;
   -webkit-align-items: baseline;
   -moz-align-items: baseline;
-  align-items: baseline; }
+  align-items: baseline; }*/
 
 /* .col-* vertically aligns an individual .col */
-.col-top {
+/*.col-top {
   -webkit-align-self: flex-start;
   -moz-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -6471,7 +6471,7 @@ a.button {
   -ms-flex-item-align: center;
   align-self: center; }
 
-/* Column Offsets */
+ Column Offsets 
 .col-offset-10 {
   margin-left: 10%; }
 
@@ -6497,13 +6497,13 @@ a.button {
   margin-left: 80%; }
 
 .col-offset-90 {
-  margin-left: 90%; }
+  margin-left: 90%; }*/
 
 /* Explicit Column Percent Sizes */
 /* By default each grid column will evenly distribute */
 /* across the grid. However, you can specify individual */
 /* columns to take up a certain size of the available area */
-.col-10 {
+/*.col-10 {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 10%;
   -moz-box-flex: 0;
@@ -6582,7 +6582,7 @@ a.button {
   -moz-flex: 0 0 90%;
   -ms-flex: 0 0 90%;
   flex: 0 0 90%;
-  max-width: 90%; }
+  max-width: 90%; }*/
 
 /* Responsive Grid Classes */
 /* Adding a class of responsive-X to a row */

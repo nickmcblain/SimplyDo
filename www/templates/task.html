@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-content ng-controller="AddTaskController">
+    <div class="nav-fixed">
+      <nav>
+        <div class="nav-wrapper valign-wrapper">
+          <div class="row">
+            <div class="col s2">
+              <i class="mdi-hardware-keyboard-backspace left" id="go-back" ng-click="goBack()"></i>              
+            </div>
+            <div class="col s10"></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="task-form">
+      <h4>Add Task</h4>
+      <p>Just fill out the form below to add a new task and organise your to-do's!</p>
+      <form ng-submit="addTask()">
+        <div class="input-field">
+          <input id="title" type="text" ng-model="formData.title">
+          <label for="title" class="grey-text">Title</label>
+        </div>
+        <div class="input-field">
+          <textarea id="content" type="text" class="materialize-textarea" ng-model="formData.content"></textarea>
+          <label for="content" class="grey-text">Notes</label>
+        </div>
+        <div class="input-field">
+          <input id="imageURL" type="text" ng-model="formData.image">
+          <label for="imageURL" class="grey-text">ImageURL</label>
+        </div>
+        <div class="input-field">
+          <input id="tags" type="text" ng-model="formData.tags">
+          <label for="tags" class="grey-text">Tags (Seperate by commas)</label>
+        </div>
+        <div class="input-field">
+            <button type="submit" class="waves-effect waves-light btn long-btn">Add</button>
+          </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

@@ -80,23 +80,12 @@
 	color: #9e9e9e;
 }
 
-#username {
+#username, #password {
 	color: #9e9e9e;
 	border-color: #ee6e73;
 }
 
-#username:focus {
-	color: #9e9e9e;
-	border-color: #ee6e73;
-	box-shadow: none;
-}
-
-#password {
-	color: #9e9e9e;
-	border-color: #ee6e73;
-}
-
-#password:focus {
+#username:focus, #password:focus {
 	color: #9e9e9e;
 	border-color: #ee6e73;
 	box-shadow: none;
@@ -119,12 +108,16 @@ nav .nav-wrapper i {
 
 .nav-wrapper form {
 	width: 100%;
-	padding: 4em 0 0 0;
 }
 
 #search {
-	margin: 0;
+	margin: .25em 0 0 0; 
 	color: #FFFFFF;
+	width: 90%;
+}
+
+#lean-overlay {
+	opacity: 0;
 }
 
 .valign-wrapper {
@@ -137,6 +130,13 @@ nav .nav-wrapper i {
 	}
 }
 
+#search-bar {
+	margin: 2em 0 0 0;
+}
+
+#add-task {
+	padding: .8em 0 0 0;
+}
 
 /**********************************************
  **********************************************
@@ -163,6 +163,31 @@ nav .nav-wrapper i {
 	margin-bottom: 1em;
 }
 
-#modal1 {
-	top: 0;
+
+/**********************************************
+ **********************************************
+ ****************** Add Task ******************
+ **********************************************
+ **********************************************/
+#go-back {
+	margin: 1em 0 0 0;
+}
+
+.task-form {
+	padding: 2em 4em 2em 4em;
+}
+
+.task-form .input-field {
+	margin: 4em 0 0 0;
+}
+
+#title, #content, #imageURL, #tags {
+	color: #9e9e9e;
+	border-color: #ee6e73;
+}
+
+#title:focus, #content:focus, #imageURL:focus, #tags:focus {
+	color: #9e9e9e;
+	border-color: #ee6e73;
+	box-shadow: none;
 }

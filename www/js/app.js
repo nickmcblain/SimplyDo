@@ -33,6 +33,10 @@ simplydo.run(function($ionicPlatform) {
   .state('app-login', {
     url:'/app-login',
     templateUrl: "templates/login.html"
+  })
+  .state('app-task', {
+    url:'/app-task',
+    templateUrl: "templates/task.html"
   });
   $urlRouterProvider.otherwise('/app-login');
 });
@@ -42,26 +46,11 @@ simplydo.run(function($ionicPlatform) {
 // ============= Application Service =============
 // ===============================================
 simplydo.factory('DataService', function($resource, $state, $http){
-  // return $resource('https://simply-do-api.herokuapp.com/api/', {}, {
-  //   login: {
-  //           method : 'post',
-  //           url : 'https://simply-do-api.herokuapp.com/api/login/',
-  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  //   },
-  //   retrieveTasks: {
-  //           method : 'get',
-  //           url : 'https://simply-do-api.herokuapp.com/api/tasks/',
-  //           headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  //   }
-  // });
-  
   var domain = 'https://simply-do-api.herokuapp.com/api';
   var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
 
   return {
     login: function(input){
-      // return $http({withCredentials: true}).post(domain + '/login', input, { headers: headerData});
-
       return $http({
         url: domain + '/login',
         withCredentials: true,
@@ -85,23 +74,6 @@ simplydo.factory('DataService', function($resource, $state, $http){
       });
     }
   };
-  
-  // var domain = 'https://simply-do-api.herokuapp.com/api';
-  // var headerData = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-  // return {
-  //   login: function(input){
-  //     return $http.post(domain + '/login', input, { headers: headerData}).success(function(){
-  //       $state.go('app');
-  //     });
-  //   },
-  //   getTasks: function(){
-  //     return $http.get(domain + '/tasks');
-  //   }, 
-  //   addTask: function(input){
-  //     return $http.post(domain + '/tasks');
-  //   }
-  // }
 });
 
 
@@ -128,9 +100,7 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ===============================================
 // ============ Task Page Controller =============
 // ===============================================
-simplydo.controller('TaskController', function($scope, DataService){
-  $('.modal-trigger').leanModal();
-
+simplydo.controller('TaskController', function($scope, $state, DataService){
   $scope.tasks = DataService.getTasks().then(function(){
     // Success
     console.log($scope.tasks);
@@ -149,79 +119,45 @@ simplydo.controller('TaskController', function($scope, DataService){
   };
 
   $scope.addTask = function(){
-
-    // DataService.addTask().then(function(){
-    //   $scope.refreshTasks();
-    // }, function(){
-    //   $scope.tasks.error = 'Failed to add task';
-    // });
+    $state.go('app-task');
   };
-  
+});
 
-  // $scope.tasks = [
-  //   {
-  //     title: 'Ideas',
-  //     tags: [
-  //       {tag: 'Idea'}, 
-  //       {tag: 'Work'}
-  //     ],
-  //     images: [
-  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'},
-  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'}
-  //     ],
-  //     contents: [
-  //       {content: 'Hello I am text for a task'},
-  //       {content: 'THis is a second task'},
-  //       {content: 'THe 3rd task thing to do'}
-  //     ]
-  //   },
-  //   {
-  //     title: 'Dog',
-  //     tags: [
-  //       {tag: 'Idea'}, 
-  //       {tag: 'Work'}
-  //     ],
-  //     images: [
-  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'},
-  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'}
-  //     ],
-  //     contents: [
-  //       {content: 'Hello I am text for a task'},
-  //       {content: 'THis is a second task'},
-  //       {content: 'THe 3rd task thing to do'}
-  //     ]
-  //   },
-  //   {
-  //     title: 'Ideas',
-  //     tags: [
-  //       {tag: 'Idea'}, 
-  //       {tag: 'Work'}
-  //     ],
-  //     images: [
-  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'},
-  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'}
-  //     ],
-  //     contents: [
-  //       {content: 'Hello I am text for a task'},
-  //       {content: 'THis is a second task'},
-  //       {content: 'THe 3rd task thing to do'}
-  //     ]
-  //   },
-  //   {
-  //     title: 'Ideas',
-  //     tags: [
-  //       {tag: 'Idea'}, 
-  //       {tag: 'Work'}
-  //     ],
-  //     images: [
-  //       {url: 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs-3.jpg'},
-  //       {url: 'http://background-download.com/background/animals-computer-dog-hd-landscape-view-wallpaper-39345.jpg'}
-  //     ],
-  //     contents: [
-  //       {content: 'Hello I am text for a task'},
-  //       {content: 'THis is a second task'},
-  //       {content: 'THe 3rd task thing to do'}
-  //     ]
-  //   }
-  // ];
+
+// ===============================================
+// ============ Add Task Controller ==============
+// ===============================================
+simplydo.controller('AddTaskController', function($scope, $state, DataService){
+  $scope.goBack = function(){
+    $state.go('app');
+  };
+
+  $scope.addTask = function(){
+    $scope.temp = 
+      {
+        title: $scope.formData.title,
+        tags: [
+          {tag: $scope.formData.tags}
+        ],
+        images: [
+          {url: $scope.formData.images}
+        ],
+        contents: [
+          {content: $scope.formData.content}
+        ]
+      };
+    
+
+    console.log($scope.temp);
+
+    DataService.addTask(
+      $scope.temp
+
+    ).then(function(){
+    }, function(){
+      $scope.tasks.error = 'Failed to add task';
+    });
+
+    $state.go('app');
+  };
 });
