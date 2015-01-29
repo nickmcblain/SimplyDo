@@ -70,7 +70,8 @@ simplydo.factory('DataService', function($resource, $state, $http){
       return $http({
         url: domain + '/tasks' + input,
         method: 'POST',
-        withCredentials: true
+        withCredentials: true,
+        data: input
       });
     }
   };
@@ -101,21 +102,20 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
 // ============ Task Page Controller =============
 // ===============================================
 simplydo.controller('TaskController', function($scope, $state, DataService){
-  $scope.tasks = DataService.getTasks().then(function(){
+  $scope.tasks = DataService.getTasks().then(function(data){
     // Success
-    console.log($scope.tasks);
+    $scope.tasks = data.data;
   },function(){
     $scope.tasks.error = 'Failed to load tasks';
   });
 
   $scope.refreshTasks = function(){
-    $scope.tasks = DataService.getTasks().then(function(){
+    $scope.tasks = DataService.getTasks().then(function(data){
       // Success
-      console.log($scope.tasks);
+      $scope.tasks = data;
     }, function(){
       $scope.tasks.error = 'Failed to load tasks';
     });
-    console.log($scope.tasks);
   };
 
   $scope.addTask = function(){
@@ -136,9 +136,7 @@ simplydo.controller('AddTaskController', function($scope, $state, DataService){
     $scope.temp = 
       {
         title: $scope.formData.title,
-        tags: [
-          {tag: $scope.formData.tags}
-        ],
+        tags: $scope.formData.tags,
         images: [
           {url: $scope.formData.images}
         ],
@@ -152,9 +150,10 @@ simplydo.controller('AddTaskController', function($scope, $state, DataService){
 
     DataService.addTask(
       $scope.temp
-
-    ).then(function(){
-    }, function(){
+    ).then(function(data){
+      console.log(data);
+    }, function(err){
+      console.log(err);
       $scope.tasks.error = 'Failed to add task';
     });
 
