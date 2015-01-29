@@ -68,7 +68,7 @@ simplydo.factory('DataService', function($resource, $state, $http){
     }, 
     addTask: function(input){
       return $http({
-        url: domain + '/tasks',
+        url: domain + '/tasks' + input,
         method: 'POST',
         withCredentials: true
       });
