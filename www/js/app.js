@@ -77,6 +77,10 @@ simplydo.factory('DataService', function($resource, $state, $http){
   };
 });
 
+
+// ===============================================
+// ============= Global Controller ===============
+// ===============================================
 simplydo.controller('AppCtrl', ['$scope', 'DataService', function($scope, DataService){
   $scope.refreshTasks = function(){
     $scope.tasks = DataService.getTasks().then(function(data){
@@ -87,6 +91,7 @@ simplydo.controller('AppCtrl', ['$scope', 'DataService', function($scope, DataSe
     });
   };
 }]);
+
 
 // ===============================================
 // ============ Login Page Controller ============
@@ -133,9 +138,7 @@ simplydo.controller('AddTaskController', function($scope, $state, DataService){
       {
         title: $scope.formData.title,
         tags: $scope.formData.tags,
-        images: [
-          {url: $scope.formData.images}
-        ],
+        image: $scope.formData.image,
         contents: [
           {content: $scope.formData.content}
         ]
