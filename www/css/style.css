@@ -97,46 +97,30 @@
  ***************** Navigation *****************
  **********************************************
  **********************************************/
-.nav-wrapper {
-	padding: 0px 15px 0px 15px;
+.outer-div {
+	display: inline-flex;
 }
 
-nav .nav-wrapper i {
-	font-size: 1.5rem;
-	color: rgba(255,255,255,0.7);
-}
-
-.nav-wrapper form {
+.inner-div {
 	width: 100%;
-}
-
-#search {
-	margin: .25em 0 0 0; 
-	color: #FFFFFF;
-	width: 90%;
-}
-
-#lean-overlay {
-	opacity: 0;
-}
-
-.valign-wrapper {
-	justify-content: left;
-}
-
-@media only screen and (min-width : 601px) {
-	nav .nav-wrapper i {
-		line-height: 1em;
-	}
+	margin: auto 1.5em;
 }
 
 #search-bar {
-	margin: 2em 0 0 0;
+	padding: 0;
 }
 
-#add-task {
-	padding: .8em 0 0 0;
+#search {
+	padding: 0;
+	color: #FFFFFF;
+	margin-top: 1em;
+	width: 98%;
 }
+
+#search-icon {
+	margin-right: 1em;
+}
+
 
 /**********************************************
  **********************************************
@@ -173,10 +157,6 @@ nav .nav-wrapper i {
  ****************** Add Task ******************
  **********************************************
  **********************************************/
-#go-back {
-	margin: 1em 0 0 0;
-}
-
 .task-form {
 	padding: 2em 4em 2em 4em;
 }

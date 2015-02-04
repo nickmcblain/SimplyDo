@@ -1,22 +1,21 @@
 <ion-view>
   <ion-content ng-controller="TaskController">
     <div class="nav-fixed">
-      <nav>
-        <div class="nav-wrapper valign-wrapper">
-          <form class="row">
-              <div class="input-field col s11" id="search-bar">
-                <input class="left" id="search" type="text" ng-model="query">
-                <label for="search"><i class="mdi-action-search"></i></label>
-              </div>
-              <div class="col s1">
-                <i class="mdi-content-add right" id="add-task" ng-click="addTask()"></i>
-              </div>
-          </form>
-        </div>
+      <nav class="outer-div">
+        <form class="nav-wrapper inner-div">
+          <div class="row">
+            <div class="input-field col s11 outer-div" id="search-bar">
+              <i class="mdi-action-search left" id="search-icon"></i>
+              <input class="inner-div left" id="search" type="text" ng-model="query">
+            </div>
+            <div class="col s1">
+              <i class="mdi-content-add right" id="add-task" ng-click="addTask()"></i>
+            </div>
+          </div>
+        </form>
       </nav>
     </div>
     <div class="tasks">
-      <h4 class="error">{{tasks.error}}</h4>
       <div class="row">
         <div class="card col s12" ng-repeat="task in tasks | filter:query as result">
           <div class="card-image waves-effect waves-block waves-light">
@@ -24,7 +23,7 @@
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">{{task.title}}<i class="mdi-navigation-more-vert right"></i></span>
-            <p><a href="#" ng-repeat="tags in task.tags">{{tags.tag}}</a></p>
+            <p><a href="#" ng-repeat="tag in task.tags">{{tag}}</a></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">{{task.title}}<i class="mdi-navigation-close right"></i></span>

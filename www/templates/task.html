@@ -1,15 +1,12 @@
 <ion-view>
   <ion-content ng-controller="AddTaskController">
     <div class="nav-fixed">
-      <nav>
-        <div class="nav-wrapper valign-wrapper">
+      <nav class="outer-div">
+        <form class="nav-wrapper inner-div">
           <div class="row">
-            <div class="col s2">
-              <i class="mdi-hardware-keyboard-backspace left" id="go-back" ng-click="goBack()"></i>              
-            </div>
-            <div class="col s10"></div>
+            <i class="mdi-hardware-keyboard-backspace left" id="go-back" ng-click="goBack()"></i>
           </div>
-        </div>
+        </form>
       </nav>
     </div>
     <div class="task-form">
