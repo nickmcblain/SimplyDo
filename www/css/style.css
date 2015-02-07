@@ -151,12 +151,13 @@
 	margin-bottom: 1em;
 }
 
-.reveal-top {
-	height: 90%;
+.reveal-bottom {
+	bottom: 0px;
 }
 
-.reveal-bottom {
-	height: 10%;
+#delete-modal {
+	max-height: 90%;
+	max-width: 90%;
 }
 
 

@@ -30,8 +30,16 @@
               <span class="card-title grey-text text-darken-4">{{task.title}}<i class="mdi-navigation-close right"></i></span>
               <p ng-repeat="contents in task.contents">{{contents.content}}</p>
             </div>
-            <div class="card-bottom">
-              <a class="waves-effect waves-light btn-flat right" ng-click="deleteTask(this)">Delete</a>
+            <div class="card-action">
+              <a href=".modal" class="waves-effect waves-light btn-flat right modal-trigger">Delete</a>
+            </div>
+            <div id="delete-modal" class="modal">
+              <h4>Are you sure?</h4>
+              <p>You can not recover the task once deleted.</p>
+              <div class="action-bar">
+                <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close" ng-click="deleteTask()">Delete</a>
+                <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+              </div>
             </div>
           </div>
         </div>

@@ -74,11 +74,9 @@ simplydo.factory('DataService', function($resource, $state, $http){
     },
     deleteTask: function(input){
       return $http({
-        url: domain + '/tasks',
+        url: domain + '/tasks/' + input,
         method: 'DELETE',
-        withCredentials: true,
-        data: 'task_id=' + input,
-        headers: headerData
+        withCredentials: true
       });
     }
   };
@@ -136,6 +134,7 @@ simplydo.controller('TaskController', function($scope, $state, DataService){
 // =========== Single Task Controller ============
 // ===============================================
 simplydo.controller('SingleTaskController', function($scope, DataService){
+  $('.modal-trigger').leanModal();
   $scope.deleteTask = function(){
     DataService.deleteTask($scope.task._id).then(function(){
       $scope.refreshTasks();
