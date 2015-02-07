@@ -9,8 +9,6 @@ var simplydo = angular.module('simplydo', ['ionic', 'ngResource']);
 // ===============================================
 simplydo.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -73,6 +71,15 @@ simplydo.factory('DataService', function($resource, $state, $http){
         withCredentials: true,
         data: input
       });
+    },
+    deleteTask: function(input){
+      return $http({
+        url: domain + '/tasks',
+        method: 'DELETE',
+        withCredentials: true,
+        data: 'task_id=' + input,
+        headers: headerData
+      });
     }
   };
 });
@@ -126,6 +133,20 @@ simplydo.controller('TaskController', function($scope, $state, DataService){
 
 
 // ===============================================
+// =========== Single Task Controller ============
+// ===============================================
+simplydo.controller('SingleTaskController', function($scope, DataService){
+  $scope.deleteTask = function(){
+    DataService.deleteTask($scope.task._id).then(function(){
+      $scope.refreshTasks();
+    }, function(err){
+      console.log(err);
+    });
+  };
+});
+
+
+// ===============================================
 // ============ Add Task Controller ==============
 // ===============================================
 simplydo.controller('AddTaskController', function($scope, $state, DataService){
@@ -143,14 +164,8 @@ simplydo.controller('AddTaskController', function($scope, $state, DataService){
           {content: $scope.formData.content}
         ]
       };
-    
 
-    console.log($scope.temp);
-
-    DataService.addTask(
-      $scope.temp
-    ).then(function(data){
-      console.log(data);
+    DataService.addTask($scope.temp).then(function(){
       $scope.refreshTasks();
     }, function(err){
       console.log(err);
