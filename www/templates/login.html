@@ -8,7 +8,7 @@
         <div class="row">
           <div class="input-field col s12 primary-text">
             <i class="mdi-action-perm-identity prefix"></i>
-            <input id="username" type="text" ng-model="formData.username">
+            <input id="username" type="email" ng-model="formData.username">
             <label class="grey-text" for="username">Username</label>
           </div>
         </div>
@@ -25,6 +25,14 @@
         <div class="row">
           <div class="input-field col s12">
             <button type="submit" class="waves-effect waves-light btn long-btn">Login</button>
+          </div>
+        </div>
+      </form>
+      <p class="grey-text" style="text-align:center; padding-bottom:1em;">Or</p>
+      <form class="col s12" ng-submit="registerUser()">
+        <div class="row">
+          <div class="input-field col s12">
+            <button type="submit" class="waves-effect waves-light btn long-btn">Register</button>
           </div>
         </div>
       </form>

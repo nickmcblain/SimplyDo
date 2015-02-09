@@ -57,6 +57,14 @@ simplydo.factory('DataService', function($resource, $state, $http){
         headers: headerData
       });
     },
+    newUser: function(input){
+      return $http({
+        url: domain + '/users',
+        method: 'POST',
+        withCredentials: false,
+        data: input
+      });
+    },
     getTasks: function(){
       return $http({
         url: domain + '/tasks',
@@ -110,6 +118,18 @@ simplydo.controller('LoginController', ['$scope', '$state', 'DataService', funct
       password: $scope.formData.password
     }).then(function(){
        $state.go('app');
+    },function(){
+       $scope.formData.error = 'Incorrect Username or Password';
+    });
+    console.log($scope.dataConnection);
+  };
+
+  $scope.registerUser = function(){
+    $scope.dataConnection = DataService.newUser({
+      username: $scope.formData.username,
+      password: $scope.formData.password
+    }).then(function(){
+       $scope.requestLogin();
     },function(){
        $scope.formData.error = 'Incorrect Username or Password';
     });
